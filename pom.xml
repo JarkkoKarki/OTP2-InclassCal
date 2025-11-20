@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Calculator</mainClass>
+                            <mainClass>calc.Calculator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
