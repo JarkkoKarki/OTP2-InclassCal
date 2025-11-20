@@ -1,9 +1,24 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+
+        // Define Docker Hub credentials ID
+        DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
+        // Define Docker Hub repository name
+        DOCKERHUB_REPO = 'jarkkok1/otp2calc-clean:latest'
+        // Define Docker image tag
+        DOCKER_IMAGE_TAG = 'latest'
+        SONAR_HOST_URL = 'http://localhost:9000'
+        SONAR_AUTH_TOKEN = credentials('SonarQubeServer')
+        SONARQUBE_SCANNER = 'SonarScanner'
+    }
+
     tools{
         maven 'MAVEN3'
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -28,6 +43,13 @@ pipeline {
         stage('Publish Test Results') {
             steps {
                 junit '**/target/surefire-reports/*.xml'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQubeServer') {
+                    bat "mvn sonar:sonar -Dsonar.projectKey=OTP2-InclassCal -Dsonar.host.url=${SONAR_HOST_URL}"
+                }
             }
         }
     }
