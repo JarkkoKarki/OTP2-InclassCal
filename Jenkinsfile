@@ -47,8 +47,19 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeServer') {
-                    bat "mvn sonar:sonar -Dsonar.projectKey=OTP2-InclassCal -Dsonar.host.url=${SONAR_HOST_URL}"
+                script {
+                        withCredentials([string(credentialsId: 'SonarQubeServer', variable: 'SONAR_TOKEN')]) {
+                            bat """
+                                ${tool 'SonarScanner'}\\bin\\sonar-scanner ^
+                                -Dsonar.projectKey=OTP2-InclassCal ^
+                                -Dsonar.sources=src/main/java ^
+                                -Dsonar.tests= ^
+                                -Dsonar.projectName=OTP2-InclassCal ^
+                                -Dsonar.host.url=${SONAR_HOST_URL} ^
+                                -Dsonar.token=%SONAR_TOKEN% ^
+                                -Dsonar.java.binaries=target/classes
+                            """
+                    }
                 }
             }
         }
