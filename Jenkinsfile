@@ -53,7 +53,6 @@ pipeline {
                                 ${tool 'SonarScanner'}\\bin\\sonar-scanner ^
                                 -Dsonar.projectKey=OTP2-InclassCal ^
                                 -Dsonar.sources=src/main/java ^
-                                -Dsonar.tests= ^
                                 -Dsonar.projectName=OTP2-InclassCal ^
                                 -Dsonar.host.url=${SONAR_HOST_URL} ^
                                 -Dsonar.token=%SONAR_TOKEN% ^
