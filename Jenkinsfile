@@ -7,7 +7,7 @@ pipeline {
         // Define Docker Hub credentials ID
         DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
         // Define Docker Hub repository name
-        DOCKERHUB_REPO = 'jarkkok1/otp2calc-clean:latest'
+        DOCKERHUB_REPO = 'jarkkok1/OTP2-InclassCal:latest'
         // Define Docker image tag
         DOCKER_IMAGE_TAG = 'latest'
         SONAR_HOST_URL = 'http://localhost:9000'
